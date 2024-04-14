@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kamrankarimov/simple-app-nodejs-express/issues"
   },
-  "homepage": "https://github.com/kamrankarimov/simple-app-nodejs-express#readme"
+  "homepage": "https://github.com/kamrankarimov/simple-app-nodejs-express#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
