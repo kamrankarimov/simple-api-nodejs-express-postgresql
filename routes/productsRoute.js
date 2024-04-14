@@ -1,7 +1,6 @@
 import router from 'express'
 import * as ProductModel from '../data/data-model.js'
 
-let productData = products_data
 const route = router.Router()
 
 // GET ALL PRODUCTS LIST
