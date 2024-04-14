@@ -1,15 +1,26 @@
 import router from 'express'
-import {products} from '../demo_data/products.js'
+import {products as products_data } from '../demo_data/products.js'
+import { findProduct } from '../data/data-model.js'
 
-let productData = products
+let productData = products_data
 
 const route = router.Router()
 
-route.get('/getall', (req, res) => {
-    res.status(200).json(productData)
+route.get('/getall', (req, res, next) => {
+    
+    findProduct().then(products => {
+        res.status(200).json(products)
+    }).catch((error) => {
+        next({
+            statusCode: 500,
+            errorMessage: "Error: Get Products Services Not Working!",
+            error
+        })
+    })
+   
 })
 
-route.get('/get/:id', (req, res) => {
+route.get('/get/:id', (req, res, next) => {
     const {id} = req.params
     const product = productData.find(product => product.id === parseInt(id))
     if(product) { 
