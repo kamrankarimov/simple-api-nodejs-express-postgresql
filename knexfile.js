@@ -1,4 +1,4 @@
-module.exports =  {
+export default  {
     development:{
         client: "pg",
         connection: {
@@ -12,5 +12,8 @@ module.exports =  {
         seeds: {
             directory: "./data/seeds"
         }
+    },
+    production:{
+
     }
 }
