@@ -1,5 +1,4 @@
 import router from 'express'
-import {products as products_data } from '../demo_data/products.js'
 import * as ProductModel from '../data/data-model.js'
 
 let productData = products_data
@@ -65,7 +64,7 @@ route.post('/create', (req, res, next) => {
     }
 })
 
-// UPDATE PRODUCT WITH PUT METHOD
+// UPDATE PRODUCT WITH PATCH METHOD
 route.patch('/update/:id', (req, res, next) => {
     const {id} = req.params;
     const updateProduct = req.body;
