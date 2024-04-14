@@ -18,7 +18,7 @@ var updateProduct = (productData, id) => {
         .where({ id })
         .then(updated => {
             if(updated){
-                return db("products").where(id).first()
+                return db("products").where({ id }).first()
             }
         })
 }
