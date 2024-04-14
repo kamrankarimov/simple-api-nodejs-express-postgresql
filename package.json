@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/kamrankarimov/simple-app-nodejs-express#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "knex": "^3.1.0",
+    "pg": "^8.11.5"
   }
 }
