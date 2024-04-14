@@ -1,5 +1,9 @@
 import db from './db-config.js'
 
+var findProductById = (id) => {
+    return db("products").where({ id }).first()
+}
+
 var getAllProducts = () => {
     return db("products")
 }
@@ -23,8 +27,14 @@ var updateProduct = (productData, id) => {
         })
 }
 
+var deleteProduct = (id) => {
+    return db("products").del().where({ id })
+}
+
 export {
     getAllProducts,
     createProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct,
+    findProductById
 }

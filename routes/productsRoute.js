@@ -3,9 +3,9 @@ import {products as products_data } from '../demo_data/products.js'
 import * as ProductModel from '../data/data-model.js'
 
 let productData = products_data
-
 const route = router.Router()
 
+// GET ALL PRODUCTS LIST
 route.get('/getall', (req, res, next) => {
     
     ProductModel.getAllProducts().then(response => {
@@ -20,18 +20,27 @@ route.get('/getall', (req, res, next) => {
    
 })
 
-// GET ALL PRODUCTS LIST
+// GET PRODUCT BY ID
 route.get('/get/:id', (req, res, next) => {
     const {id} = req.params
-    const product = productData.find(product => product.id === parseInt(id))
-    if(product) { 
-        res.status(200).json(product)
-    }else{
-        next({
-            statusCode: 400,
-            errorMessage: `Product ID number ${id} was not found.`
+    
+    ProductModel.findProductById(id)
+        .then(response => {
+            if(response){
+                res.status(200).json(response)
+            }else{
+                next({
+                    statusCode: 400,
+                    errorMessage: "Product Not Found"
+                })
+            } 
+        }).catch(error => {
+            next({
+                statusCode: 500,
+                errorMessage: "System Error",
+                error
+            })
         })
-    } 
 })
 
 // ADD NEW PRODUCT
@@ -79,19 +88,38 @@ route.patch('/update/:id', (req, res, next) => {
     }
 })
 
+// DELETE PRODUCT SERVICE
 route.delete('/delete/:id', (req, res, next) => {
-    let productID = req.params.id
-    let getProduct = productData.find(product => product.id === Number(productID))
-    
-    if(getProduct) {
-        productData = productData.filter(product => product.id !== Number(productID))
-        res.status(204).end()
-    }else{
-        next({
-            statusCode: 400,
-            errorMessage: `DeleteError: Product ID number was not found.`
+    const {id} = req.params
+
+    ProductModel.findProductById(id).then(response => {
+        ProductModel.deleteProduct(id)
+        .then(response => {
+            if(response){
+                res.status(204).json(response)
+            }else{
+                next({
+                    statusCode: 400,
+                    errorMessage: "Product not found or other system error"
+                })
+            }
+        }).catch(error => {
+            next({
+                statusCode: 500,
+                errorMessage: "Product delete service not working",
+                error
+            })
         })
-    }
+    }).catch(error => {
+        next({
+            statusCode: 500,
+            errorMessage: "System error",
+            error
+        })
+    })
+    
+    
+
 })
 
 export {route as productsRoutes}
