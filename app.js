@@ -10,7 +10,6 @@ app.use(logger)
 app.use("/products", productsRoutes)
 app.use(errorHandling)
 
-
 app.listen(5000, () => {
     console.log('Server starting...')
 })
